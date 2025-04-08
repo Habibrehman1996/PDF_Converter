@@ -50,5 +50,5 @@ jobs:
           ANDROID_HOME: "$HOME/android-sdk"
           ANDROID_SDK_ROOT: "$HOME/android-sdk"
         run: |
-          buildozer init
           buildozer android debug --sdk_dir $HOME/android-sdk --verbose
+          
