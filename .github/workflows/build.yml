@@ -27,12 +27,17 @@ jobs:
       - name: Install Android SDK
         run: |
           wget -q https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip -O android-sdk.zip
-          unzip -q android-sdk.zip -d android-sdk
-          echo "ANDROID_SDK_ROOT=$(pwd)/android-sdk" >> $GITHUB_ENV
-          echo "PATH=$(pwd)/android-sdk/cmdline-tools/bin:$PATH" >> $GITHUB_ENV
+          unzip -q android-sdk.zip -d $HOME/android-sdk
+          mkdir -p $HOME/android-sdk/cmdline-tools/latest
+          mv $HOME/android-sdk/cmdline-tools/* $HOME/android-sdk/cmdline-tools/latest/
+          echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
+          echo "ANDROID_SDK_ROOT=$HOME/android-sdk" >> $GITHUB_ENV
+          echo "$HOME/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
       - name: Accept SDK Licenses and Install Build-Tools
         run: |
-          yes | android-sdk/cmdline-tools/bin/sdkmanager --sdk_root=$(pwd)/android-sdk "platforms;android-30" "build-tools;30.0.3"
+          yes | $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses
+          $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager "build-tools;30.0.3" "platforms;android-30"
       - name: Build APK
         run: |
+          buildozer init
           buildozer android debug
