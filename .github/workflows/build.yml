@@ -35,15 +35,12 @@ jobs:
           echo "$HOME/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
       - name: Accept SDK Licenses and Install Build-Tools
         run: |
-          # Ensure all licenses are accepted
           yes | $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses --sdk_root=$HOME/android-sdk
-          # Install platform and build-tools
           $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/android-sdk "platforms;android-30" "build-tools;30.0.3"
-          # Verify build-tools installation
           ls $HOME/android-sdk/build-tools/30.0.3 || echo "Build-tools not found!"
       - name: Build APK
         env:
-          ANDROIDSDK: "$HOME/android-sdk"  # Explicitly set for Buildozer
+          ANDROIDSDK: "$HOME/android-sdk"
         run: |
           buildozer init
-          buildozer android debug
+          buildozer android debug --sdk_dir $HOME/android-sdk
