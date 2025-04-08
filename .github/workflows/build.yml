@@ -39,5 +39,6 @@ jobs:
           $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager "build-tools;30.0.3" "platforms;android-30"
       - name: Build APK
         run: |
-          buildozer init
+          buildozer android debug
+          
           buildozer android debug
