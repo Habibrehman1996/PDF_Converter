@@ -21,5 +21,4 @@ jobs:
           pip install buildozer cython==0.29.19 virtualenv==20.4.3 kivy==2.0.0 kivymd==0.104.1 pillow==8.4.0 img2pdf plyer==1.4.3
       - name: Build APK
         run: |
-          buildozer init
           buildozer android debug
