@@ -4,7 +4,7 @@ package.name = imagetopdf
 package.domain = org.example
 source.dir = .
 source.include_exts = py,png,jpg,kv atlas
-requirements = python3,kivy==2.0.0,kivymd==0.104.1,pillow==8.4.0,jpeg,png
+requirements = python3,kivy==2.0.0,kivymd==0.104.1,pillow==8.4.0,jpeg,png,img2pdf==0.4.4,plyer==1.6.0
 android.api = 30
 android.minapi = 21
 android.ndk_version = 21b
