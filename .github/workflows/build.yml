@@ -38,9 +38,17 @@ jobs:
           yes | $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses --sdk_root=$HOME/android-sdk
           $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --sdk_root=$HOME/android-sdk "platforms;android-30" "build-tools;30.0.3"
           ls $HOME/android-sdk/build-tools/30.0.3 || echo "Build-tools not found!"
+      - name: Debug Build-Tools Location
+        run: |
+          echo "Checking Build-Tools directory:"
+          ls -la $HOME/android-sdk/build-tools/30.0.3
+          echo "Checking for aidl:"
+          find $HOME/android-sdk -name "aidl"
       - name: Build APK
         env:
           ANDROIDSDK: "$HOME/android-sdk"
+          ANDROID_HOME: "$HOME/android-sdk"
+          ANDROID_SDK_ROOT: "$HOME/android-sdk"
         run: |
-          buildozer android debug --sdk_dir $HOME/android-sdk
-          
+          buildozer init
+          buildozer android debug --sdk_dir $HOME/android-sdk --verbose
